@@ -1,0 +1,17 @@
+import sqlite3
+
+class Patient:
+    def __init__(self, name, age, gender, disease):
+        self.name = name
+        self.age = age
+        self.gender = gender
+        self.disease = disease
+
+    def save(self):
+        conn = sqlite3.connect("hospital.db")
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO patients(name, age, gender, disease) VALUES (?, ?, ?, ?)",
+                       (self.name, self.age, self.gender, self.disease))
+        conn.commit()
+        conn.close()
+        print("✅ Patient Registered Successfully!")

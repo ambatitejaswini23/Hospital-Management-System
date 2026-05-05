@@ -1,0 +1,15 @@
+import sqlite3
+
+class Doctor:
+    def __init__(self, name, specialization):
+        self.name = name
+        self.specialization = specialization
+
+    def save(self):
+        conn = sqlite3.connect("hospital.db")
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO doctors(name, specialization) VALUES (?, ?)",
+                       (self.name, self.specialization))
+        conn.commit()
+        conn.close()
+        print("✅ Doctor Added Successfully!")
